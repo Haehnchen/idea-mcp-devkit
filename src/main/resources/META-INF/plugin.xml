@@ -1,0 +1,45 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>de.espend.mcp.devkit</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/best-practices-for-listing.html#plugin-name -->
+    <name>MCP Devkit</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor url="https://espend.de">espend.de</vendor>
+
+    <description><![CDATA[
+        <p>Extends the <a href="https://plugins.jetbrains.com/plugin/26071-mcp-server">MCP Server</a> plugin with tools for IntelliJ plugin development.</p>
+
+        <h3>Features</h3>
+        <ul>
+            <li><b>psi_structure</b> - Parse any code snippet and retrieve the PSI (Program Structure Interface) tree, IntelliJ's internal AST representation</li>
+        </ul>
+
+        <h3>Requirements</h3>
+        <ul>
+            <li><a href="https://plugins.jetbrains.com/plugin/26071-mcp-server">MCP Server</a> plugin must be installed</li>
+            <li>Language plugins for the languages you want to analyze (e.g., PHP, Python, Kotlin) must be installed</li>
+        </ul>
+
+        <h3>Setup</h3>
+        <p>Configure MCP in your AI client as described in the <a href="https://www.jetbrains.com/help/idea/mcp-server.html">JetBrains MCP Server documentation</a>.</p>
+        <p>The MCP server URL can be found in <b>Tools | MCP Server</b> settings (e.g., <code>http://127.0.0.1:64342/sse</code>).</p>
+
+        <h3>Debugging</h3>
+        <p>Use the <a href="https://github.com/modelcontextprotocol/inspector">MCP Inspector</a> to debug and test MCP tool calls.</p>
+    ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.mcpServer</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <mcpServer.mcpToolset implementation="de.espend.mcp.devkit.PsiMcpToolset" />
+    </extensions>
+</idea-plugin>
