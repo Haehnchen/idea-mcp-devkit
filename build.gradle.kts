@@ -1,3 +1,5 @@
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
+
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "2.1.0"
@@ -21,7 +23,14 @@ dependencies {
         create("IC", "2025.2.5")
         testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
         bundledPlugins("com.intellij.mcpServer")
+
+        testFramework(TestFrameworkType.Platform)
+        testFramework(TestFrameworkType.Plugin.Java)
     }
+
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.8.2")
 }
 
 intellijPlatform {
@@ -43,6 +52,12 @@ tasks {
         targetCompatibility = "21"
         // Preserve parameter names for reflection (required for MCP toolset parameter naming)
         options.compilerArgs.add("-parameters")
+    }
+
+    test {
+        useJUnitPlatform {
+            includeEngines("junit-vintage")
+        }
     }
 }
 
